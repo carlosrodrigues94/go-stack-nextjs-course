@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import { Title } from "../styles/pages/home";
+import { Title } from "@/styles/pages/home";
 
 interface IProduct {
   id: string;

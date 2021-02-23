@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { useState } from "react";
-import { Title } from "../styles/pages/home";
+import { Title } from "@/styles/pages/home";
 
 interface IProduct {
   id: string;
