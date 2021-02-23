@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { useState } from "react";
 import { Title } from "@/styles/pages/home";
+import SEO from "@/components/SEO";
 
 interface IProduct {
   id: string;
@@ -23,21 +24,27 @@ export default function Home({ products }: HomeProps) {
   }
 
   return (
-    <section>
-      <Title>Products</Title>
+    <>
+      <SEO
+        title="DevCommerce, your best place to buy"
+        shouldExcludeTitleSuffix
+      />
+      <section>
+        <Title>Products</Title>
 
-      <h4>{sumValue}</h4>
+        <h4>{sumValue}</h4>
 
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>{product.title}</li>
-        ))}
-      </ul>
+        <ul>
+          {products.map((product) => (
+            <li key={product.id}>{product.title}</li>
+          ))}
+        </ul>
 
-      <button type="button" onClick={() => handleSum()}>
-        Sum
-      </button>
-    </section>
+        <button type="button" onClick={() => handleSum()}>
+          Sum
+        </button>
+      </section>
+    </>
   );
 }
 
