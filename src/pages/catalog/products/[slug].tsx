@@ -58,7 +58,7 @@ function Product({ product }: ProductProps) {
       <p>{`Price: ${product.data.price}`}</p>
 
       <button type="button" onClick={handleAddToCart}>
-        {isOpenModal ? "Add to Card" : "Remove from Cart"}
+        {isOpenModal ? "Remove from Cart" : "Add to Card"}
       </button>
 
       {isOpenModal && <ModalAddToCart />}
