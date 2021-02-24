@@ -31,7 +31,7 @@ function Product({ product }: ProductProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   function handleAddToCart() {
-    setIsOpenModal(true);
+    setIsOpenModal(!isOpenModal);
   }
 
   if (router.isFallback) {
@@ -58,7 +58,7 @@ function Product({ product }: ProductProps) {
       <p>{`Price: ${product.data.price}`}</p>
 
       <button type="button" onClick={handleAddToCart}>
-        Add to Card
+        {isOpenModal ? "Add to Card" : "Remove from Cart"}
       </button>
 
       {isOpenModal && <ModalAddToCart />}
