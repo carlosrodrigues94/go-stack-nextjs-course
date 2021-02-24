@@ -2,6 +2,11 @@ import { GetServerSideProps } from "next";
 import { useState } from "react";
 import { Title } from "@/styles/pages/home";
 import SEO from "@/components/SEO";
+import { client } from "@/lib/prismic";
+import Prismic from "prismic-javascript";
+import Link from "next/link";
+import { Document } from "prismic-javascript/types/documents";
+import PrismicDOM from "prismic-dom";
 
 interface IProduct {
   id: string;
@@ -9,7 +14,7 @@ interface IProduct {
 }
 
 interface HomeProps {
-  products: IProduct[];
+  products: Document[];
 }
 
 export default function Home({ products }: HomeProps) {
@@ -36,7 +41,11 @@ export default function Home({ products }: HomeProps) {
 
         <ul>
           {products.map((product) => (
-            <li key={product.id}>{product.title}</li>
+            <li key={product.id}>
+              <Link href={`/catalog/products/${product.uid}`}>
+                <a>{PrismicDOM.RichText.asText(product.data.title)}</a>
+              </Link>
+            </li>
           ))}
         </ul>
 
@@ -53,13 +62,15 @@ export default function Home({ products }: HomeProps) {
  * Must be used only when its necessary for crawlers or search engines
  */
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const response = await fetch("http://localhost:3333/recommended");
-
-  const products = await response.json();
+  const recommendedProducts = await client().query([
+    /** Predicates from prismic its like a where in database */
+    Prismic.Predicates.at("document.type", "product"),
+  ]);
+  const { results } = recommendedProducts;
 
   return {
     props: {
-      products,
+      products: results,
     },
   };
 };

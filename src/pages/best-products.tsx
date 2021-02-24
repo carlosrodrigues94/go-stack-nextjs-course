@@ -27,13 +27,9 @@ function BestProducts({ products }: BestProductsProps) {
  *  Used to render static pages (Pages that don´t need to be updated with frequency)
  */
 const getStaticProps: GetStaticProps<BestProductsProps> = async (context) => {
-  const response = await fetch("http://localhost:3333/products");
-
-  const products = await response.json();
-
   return {
     props: {
-      products,
+      products: [],
     },
     /**
      * Revalidate method uses a number as seconds to recreate the page updated
